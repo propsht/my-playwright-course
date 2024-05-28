@@ -126,6 +126,7 @@ with sync_playwright() as playwright:
     #
     # outline_button.hover()
 
+    ## INPUT
     # input =  page.get_by_placeholder("Enter email")
     #
     # input.fill("test@test.com")
@@ -140,29 +141,43 @@ with sync_playwright() as playwright:
     # valid_input.input_value()
 
     ## Radio, Checkboxes and Switches
-    radio_option2 = page.get_by_label("Option two can be something else and selecting it will deselect option one")
-    radio_option2.check()
+    # radio_option2 = page.get_by_label("Option two can be something else and selecting it will deselect option one")
+    # radio_option2.check()
+    #
+    # radio_option1 = page.get_by_label("Option one is this and that—be sure to include why it's great")
+    # radio_option1.check()
+    #
+    # checkbox1 = page.get_by_label("Default checkbox")
+    # checkbox2 = page.get_by_label("Checked checkbox")
+    #
+    # checkbox1.check()
+    # checkbox2.uncheck()
+    # #set state of our checkbox
+    # checkbox2.is_checked()
+    #
+    # checkbox1.set_checked(False)
+    # checkbox1.click()
+    #
+    # switch = page.get_by_label("Default switch checkbox input")
+    # switch.check()
+    # switch.click()
 
-    radio_option1 = page.get_by_label("Option one is this and that—be sure to include why it's great")
-    radio_option1.check()
+    ## Select Option From Option Menu
 
-    checkbox1 = page.get_by_label("Default checkbox")
-    checkbox2 = page.get_by_label("Checked checkbox")
+    select = page.get_by_label("Example select")
+    select.select_option("4")
+    select.select_option("2")
+    select.select_option("5")
 
-    checkbox1.check()
-    checkbox2.uncheck()
-    #set state of our checkbox
-    checkbox2.is_checked()
+    multi_select = page.get_by_label("Example multiple select")
+    multi_select.select_option(["2", "4"])
 
-    checkbox1.set_checked(False)
-    checkbox1.click()
+    ## DROPDOWN
+    dropdown = page.locator("button#btnGroupDrop1")
+    dropdown.click()
 
-    switch = page.get_by_label("Default switch checkbox input")
-    switch.check()
-    switch.click()
-
-
-
+    dropdown_link = page.locator("div.dropdown-menu:visible a:text('Dropdown link')").nth(1)
+    dropdown_link.click()
 
 
 
