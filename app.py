@@ -102,10 +102,47 @@ with sync_playwright() as playwright:
     #
     # # Element based on Filter
     # page.get_by_role("heading").filter(has_text="Heading").highlight()
+    #
+    # page.locator("div.bs-component").filter(
+    #     has=page.get_by_label("Password")
+    # ).highlight()
 
-    page.locator("div.bs-component").filter(
-        has=page.get_by_label("Password")
-    ).highlight()
+    # ACTIONS
 
-    time.sleep(10)
+    # button = page.get_by_role("button", name="Block button").nth(1)
+    # button.click()
+    #
+    # button.dblclick(delay=500)
+    #
+    # # press button by clicking
+    # button.click(button="right", delay=500)
+    #
+    # # hold button by click
+    # button.click(modifiers=["Control"])
+    #
+    # button.click(modifiers=["Shift", "Control"])
+    #
+    # outline_button = page.locator("button.btn-outline-primary")
+    #
+    # outline_button.hover()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    time.sleep(5)
     browser.close()
