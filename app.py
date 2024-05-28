@@ -126,6 +126,42 @@ with sync_playwright() as playwright:
     #
     # outline_button.hover()
 
+    # input =  page.get_by_placeholder("Enter email")
+    #
+    # input.fill("test@test.com")
+    # time.sleep(5)
+    # input.clear()
+    #
+    # input.type("test@test.com", delay = 200)
+    # time.sleep(5)
+    # input.clear()
+    #
+    # valid_input = page.get_by_label("Valid input").nth(0)
+    # valid_input.input_value()
+
+    ## Radio, Checkboxes and Switches
+    radio_option2 = page.get_by_label("Option two can be something else and selecting it will deselect option one")
+    radio_option2.check()
+
+    radio_option1 = page.get_by_label("Option one is this and that—be sure to include why it's great")
+    radio_option1.check()
+
+    checkbox1 = page.get_by_label("Default checkbox")
+    checkbox2 = page.get_by_label("Checked checkbox")
+
+    checkbox1.check()
+    checkbox2.uncheck()
+    #set state of our checkbox
+    checkbox2.is_checked()
+
+    checkbox1.set_checked(False)
+    checkbox1.click()
+
+    switch = page.get_by_label("Default switch checkbox input")
+    switch.check()
+    switch.click()
+
+
 
 
 
