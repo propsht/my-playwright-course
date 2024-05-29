@@ -162,24 +162,49 @@ with sync_playwright() as playwright:
     # switch.check()
     # switch.click()
 
-    ## Select Option From Option Menu
+    # ## Select Option From Option Menu
+    #
+    # select = page.get_by_label("Example select")
+    # select.select_option("4")
+    # select.select_option("2")
+    # select.select_option("5")
+    #
+    # multi_select = page.get_by_label("Example multiple select")
+    # multi_select.select_option(["2", "4"])
+    #
+    # ## DROPDOWN
+    # dropdown = page.locator("button#btnGroupDrop1")
+    # dropdown.click()
+    #
+    # dropdown_link = page.locator("div.dropdown-menu:visible a:text('Dropdown link')").nth(1)
+    # dropdown_link.click()
 
-    select = page.get_by_label("Example select")
-    select.select_option("4")
-    select.select_option("2")
-    select.select_option("5")
+    ## Upload File
 
-    multi_select = page.get_by_label("Example multiple select")
-    multi_select.select_option(["2", "4"])
+    file_input = page.get_by_label("Default file input example")
 
-    ## DROPDOWN
-    dropdown = page.locator("button#btnGroupDrop1")
-    dropdown.click()
+    file_input.set_input_files("file.txt")
+    # file_input.set_input_files(["file.txt", "app.py"])
 
-    dropdown_link = page.locator("div.dropdown-menu:visible a:text('Dropdown link')").nth(1)
-    dropdown_link.click()
+    #when we have one button and after modal window opened
+    with page.expect_file_chooser() as fc_info:
+        file_input.click()
+
+        file_chooser = fc_info.value
+        file_chooser.set_files("file2.txt")
 
 
+    #Keyboard Shorcuts
+    textarea = page.get_by_label("Example textarea")
+    textarea.fill("word")
+    textarea.clear()
+
+    textarea.press("KeyW")
+    textarea.press("KeyO")
+    textarea.press("KeyR")
+    textarea.press("Shift+KeyD")
+    textarea.press("Control+ArrowLeft")
+    textarea.press("ArrowRight")
 
 
 
