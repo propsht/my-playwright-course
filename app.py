@@ -2,9 +2,25 @@ import time
 
 from playwright.sync_api import sync_playwright
 
+# counting performe time waiting elements
+from time import perf_counter
+
+# def on_load(page):
+# print("Page loaded:", page)
+
+
+# def on_load(request):
+#     print("Request loaded:", request)
+
+
+def on_filechooser(file_chooser):
+    print("File chooser selected:")
+    file_chooser.set_files("file.txt")
+
+
 with sync_playwright() as playwright:
     # Launch a browser
-    browser = playwright.firefox.launch(headless=False, slow_mo=5000)
+    browser = playwright.chromium.launch(headless=False, slow_mo=5000)
     # Create a new page
     page = browser.new_page()
     # visit the playwright website
@@ -37,7 +53,7 @@ with sync_playwright() as playwright:
     # page.get_by_title("attribute").highlight()
 
     # CSS
-    page.goto("https://bootswatch.com/default/")
+    # page.goto("https://bootswatch.com/default/")
     # page.locator("css=h1").highlight()
     # page.locator("footer").highlight()
 
@@ -181,44 +197,82 @@ with sync_playwright() as playwright:
 
     ## Upload File
 
+    # file_input = page.get_by_label("Default file input example")
+    #
+    # file_input.set_input_files("file.txt")
+    # # file_input.set_input_files(["file.txt", "app.py"])
+    #
+    # #when we have one button and after modal window opened
+    # with page.expect_file_chooser() as fc_info:
+    #     file_input.click()
+    #
+    #     file_chooser = fc_info.value
+    #     file_chooser.set_files("file2.txt")
+    #
+    #
+    # #Keyboard Shorcuts
+    # textarea = page.get_by_label("Example textarea")
+    # textarea.fill("word")
+    # textarea.clear()
+    #
+    # textarea.press("KeyW")
+    # textarea.press("KeyO")
+    # textarea.press("KeyR")
+    # textarea.press("Shift+KeyD")
+    # textarea.press("Control+ArrowLeft")
+    # textarea.press("ArrowRight")
+    #
+    # button = page.get_by_role("button", name="Primary").nth(0)
+    # button.click()
+    #
+    # link = page.locator("a.dropdown-item").nth(0)
+    # link.click(force=True)
+    #
+    # print("Page loading...")
+    # start = perf_counter()
+
+    ## Waitings
+    # page.goto(
+    #     "https://playwright.dev/python/",
+    #     # wait_until="load"
+    #     # wait_until="domcontentloaded",
+    #     # wait_until='commit',
+    #     # wait_until='networkidle',
+    # )
+    #
+    # time_taking = perf_counter() - start
+    # print(f"Page loaded in {round(time_taking, 2)}s")
+
+    ## Custom waitings
+    # page.goto("https://www.scrapethissite.com/pages/ajax-javascript/")
+    #
+    # link = page.get_by_role("link", name="2015")
+    # link.click()
+    #
+    # print("Loading oscars for 2015...")
+    # start = perf_counter()
+    #
+    # # first_table_data = page.locator("td.film-title").nth(0)
+    # # first_table_data.wait_for()
+    # # first_table_data.wait_for(state="visible")
+    # page.wait_for_selector(selector="td.film-title"),
+    #
+    # time_taking = perf_counter() - start
+    # print(f"... movies are loaded, in  {round(time_taking, 2)}s")
+
+    ##Event Listeners
+
+    # page.on("load", on_load)
+    # page.on("document", on_load)
+
+    # page.on("request", on_load)
+    # page.goto("https://bootswatch.com/default/")
+
+    page.on("filechooser", on_filechooser)
+    page.goto("https://bootswatch.com/default/")
+
     file_input = page.get_by_label("Default file input example")
-
-    file_input.set_input_files("file.txt")
-    # file_input.set_input_files(["file.txt", "app.py"])
-
-    #when we have one button and after modal window opened
-    with page.expect_file_chooser() as fc_info:
-        file_input.click()
-
-        file_chooser = fc_info.value
-        file_chooser.set_files("file2.txt")
-
-
-    #Keyboard Shorcuts
-    textarea = page.get_by_label("Example textarea")
-    textarea.fill("word")
-    textarea.clear()
-
-    textarea.press("KeyW")
-    textarea.press("KeyO")
-    textarea.press("KeyR")
-    textarea.press("Shift+KeyD")
-    textarea.press("Control+ArrowLeft")
-    textarea.press("ArrowRight")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    file_input.click()
 
     time.sleep(5)
     browser.close()
