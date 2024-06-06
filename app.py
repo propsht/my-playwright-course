@@ -12,10 +12,28 @@ from time import perf_counter
 # def on_load(request):
 #     print("Request loaded:", request)
 
+#
+# def on_filechooser(file_chooser):
+#     print("File chooser selected:")
+#     file_chooser.set_files("file.txt")
 
-def on_filechooser(file_chooser):
-    print("File chooser selected:")
-    file_chooser.set_files("file.txt")
+# def on_dialog(dialog):
+#     print("Dialog opened:", dialog)
+#     dialog.accept()
+#
+# def on_dialog(dialog):
+#     print("Dialog opened:", dialog)
+#     dialog.accept("Playwrite Cool")
+
+def on_download(download):
+    print("Download started")
+    download.save_as("nature2.jpg")
+
+
+
+
+
+
 
 
 with sync_playwright() as playwright:
@@ -268,11 +286,57 @@ with sync_playwright() as playwright:
     # page.on("request", on_load)
     # page.goto("https://bootswatch.com/default/")
 
-    page.on("filechooser", on_filechooser)
-    page.goto("https://bootswatch.com/default/")
+    # page.on("filechooser", on_filechooser)
+    # page.goto("https://bootswatch.com/default/")
+    #
+    # file_input = page.get_by_label("Default file input example")
+    # file_input.click()
 
-    file_input = page.get_by_label("Default file input example")
-    file_input.click()
+##Handling Dialigs
+
+    # page.goto("https://testpages.herokuapp.com/styled/alerts/alert-test.html")
+    ## only OK btn
+    # alert_btn = page.get_by_text("Show alert box")
+    # alert_btn.click()
+
+    ## Ok and Cancel btn
+    # page.on("dialog", on_dialog)
+    # alert_btn = page.get_by_text("Show confirm box")
+    # alert_btn.click()
+
+    # ## input some data in alert
+    # page.on("dialog", on_dialog)
+    # alert_btn = page.get_by_text("Show prompt box")
+    # alert_btn.click()
+
+
+    ## Download file
+    # page.goto("https://unsplash.com/photos/brown-rock-formation-under-blue-sky-during-daytime-W2pwbgyn5RE")
+    page.goto("https://unsplash.com/photos/a-view-of-the-mountains-from-the-top-of-a-mountain-I62h3Pv-JSI")
+
+    # page.on("download", on_download)
+    page.once("download", on_download)
+    download_btn = page.get_by_role("link", name="Download free")
+
+    with page.expect_download() as download_info:
+        download_btn.click()
+
+    # download = download_info.value
+    # download.save_as("nature.jpg")
+    print(f"Downloaded {download}")
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     time.sleep(5)
     browser.close()
