@@ -25,15 +25,10 @@ from time import perf_counter
 #     print("Dialog opened:", dialog)
 #     dialog.accept("Playwrite Cool")
 
+
 def on_download(download):
     print("Download started")
     download.save_as("nature2.jpg")
-
-
-
-
-
-
 
 
 with sync_playwright() as playwright:
@@ -292,7 +287,7 @@ with sync_playwright() as playwright:
     # file_input = page.get_by_label("Default file input example")
     # file_input.click()
 
-##Handling Dialigs
+    ##Handling Dialigs
 
     # page.goto("https://testpages.herokuapp.com/styled/alerts/alert-test.html")
     ## only OK btn
@@ -309,10 +304,11 @@ with sync_playwright() as playwright:
     # alert_btn = page.get_by_text("Show prompt box")
     # alert_btn.click()
 
-
     ## Download file
     # page.goto("https://unsplash.com/photos/brown-rock-formation-under-blue-sky-during-daytime-W2pwbgyn5RE")
-    page.goto("https://unsplash.com/photos/a-view-of-the-mountains-from-the-top-of-a-mountain-I62h3Pv-JSI")
+    page.goto(
+        "https://unsplash.com/photos/a-view-of-the-mountains-from-the-top-of-a-mountain-I62h3Pv-JSI"
+    )
 
     # page.on("download", on_download)
     page.once("download", on_download)
@@ -324,19 +320,6 @@ with sync_playwright() as playwright:
     # download = download_info.value
     # download.save_as("nature.jpg")
     print(f"Downloaded {download}")
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     time.sleep(5)
     browser.close()
