@@ -9,6 +9,7 @@ black = "*"
 faker = "*"
 playwright = "*"
 pytest-playwright = "*"
+pip = "*"
 
 [dev-packages]
 

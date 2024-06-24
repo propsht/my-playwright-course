@@ -1,7 +1,7 @@
 from playwright.sync_api import sync_playwright
 
 with sync_playwright() as playwright:
-    browser = playwright.firefox.launch(headless=False, slow_mo=5000)
+    browser = playwright.firefox.launch()
     context = browser.new_context(storage_state="playwright/.auth/storage_state.json")
     page = context.new_page()
     page.goto("https://gmail.com")
