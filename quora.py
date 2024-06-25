@@ -31,7 +31,9 @@ with sync_playwright() as playwright:
     context = browser.new_context(storage_state="playwright/.auth/quora_state.json")
 
     page = context.new_page()
-    page.goto("https://www.quora.com/Is-it-cheating-if-my-partner-is-talking-secretly-with-his-ex")
+    page.goto(
+        "https://www.quora.com/Is-it-cheating-if-my-partner-is-talking-secretly-with-his-ex"
+    )
 
     page.pause()
 
