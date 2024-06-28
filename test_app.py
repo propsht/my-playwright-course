@@ -7,6 +7,7 @@ DOCS_URL = "https://playwright.dev/python/docs/intro"
 @pytest.fixture(autouse=True, scope="function")
 def visit_playwright(page: Page):
     page.goto("https://playwright.dev/python/")
+
     yield page
     page.close()
 
@@ -21,8 +22,9 @@ def test_page_has_doc_link(page: Page):
 def test_page_has_get_started_link(page: Page):
 
     link = page.get_by_role("link", name="Get started")
+    link.screenshot(path="screenshot/get_started_link.png")
     link.click()
-
+    page.screenshot(path="screenshot/playwright.png", full_page=True)
     assert page.url == DOCS_URL
 
 
