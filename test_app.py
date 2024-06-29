@@ -1,7 +1,16 @@
 import pytest
-from playwright.sync_api import Page
+from playwright.sync_api import Page, Browser
 
 DOCS_URL = "https://playwright.dev/python/docs/intro"
+
+@pytest.fixture
+def recording_page(browser: Browser):
+    context = browser.new_context(
+        record_video_dir="video/"
+    )
+    page = context.new_page()
+    yield page
+    context.close()
 
 
 @pytest.fixture(autouse=True, scope="function")
@@ -26,6 +35,19 @@ def test_page_has_get_started_link(page: Page):
     link.click()
     page.screenshot(path="screenshot/playwright.png", full_page=True)
     assert page.url == DOCS_URL
+
+def test_page_has_get_started_link_video(recording_page: Page):
+    recording_page.goto("https://playwright.dev/python/")
+    theme_btn= recording_page.get_by_title("Switch between dark and light mode (currently dark mode)")
+    recording_page.wait_for_timeout(1000)
+    theme_btn.click()
+    recording_page.wait_for_timeout(1000)
+
+    link = recording_page.get_by_role("link", name="Get started")
+    link.screenshot(path="screenshot/get_started_link.png")
+    link.click()
+    recording_page.screenshot(path="screenshot/playwright.png", full_page=True)
+    assert recording_page.url == DOCS_URL
 
 
 # @pytest.fixture()
