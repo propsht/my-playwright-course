@@ -1,5 +1,6 @@
 import pytest
 from playwright.sync_api import Page, Browser, BrowserContext
+#generate code action  "playwright codegen playwright.dev"
 
 DOCS_URL = "https://playwright.dev/python/docs/intro"
 
