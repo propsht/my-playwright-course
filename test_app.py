@@ -1,5 +1,5 @@
 import pytest
-from playwright.sync_api import Page, Browser
+from playwright.sync_api import Page, Browser, BrowserContext
 
 DOCS_URL = "https://playwright.dev/python/docs/intro"
 
@@ -19,6 +19,20 @@ def visit_playwright(page: Page):
 
     yield page
     page.close()
+
+@pytest.fixture(autouse=True)
+def trace_test(context:BrowserContext):
+    #setup hook
+    context.tracing.start(
+        name="playwright",
+        screenshots=True,
+        snapshots=True,
+        sources=True,
+    )
+    yield
+    context.tracing.stop(path="trace/trace.zip")
+    #playwright show-trace trace/trace.zip
+
 
 
 def test_page_has_doc_link(page: Page):
