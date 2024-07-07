@@ -32,7 +32,7 @@ with sync_playwright() as playwright:
 
     page = context.new_page()
     page.goto("https://qr.ae/psB6nc")
-    upvote_btn = page.get_by_text('Upvote')
+    upvote_btn = page.get_by_text("Upvote")
     upvote_btn[1].click()
 
     page.pause()
